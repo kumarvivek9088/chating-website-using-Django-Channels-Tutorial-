@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <textarea id="chatarea" cols="50" rows="10"></textarea><br>
+    <input type="text" id="chatinput" placeholder="enter your message here">
+    <button id="chatbtn">Send</button>
+    {{roomname|json_script:"roomname"}}  
+    <script>
+        //json.stringify - javascript object to json string
+        //json.parse - json string to javascript object
+        const roomname = JSON.parse(document.getElementById("roomname").textContent);
+        const chatsocket = new WebSocket(
+            'ws://' + window.location.host + '/ws/chat/' + roomname + '/'
+        )
+        chatsocket.onmessage = function(e){
+            const data = JSON.parse(e.data);
+            document.querySelector("#chatarea").value += (data.user + ":" + data.message + '\n');
+        };
+        document.getElementById("chatbtn").onclick = function(e){
+            const msg = document.getElementById("chatinput").value;
+            chatsocket.send(JSON.stringify({'message':msg}));
+            document.querySelector("#chatinput").value ='';
+        };
+        chatsocket.onclose = function(e){
+            console.log("chatsocket close");
+        };
+        document.querySelector("#chatinput").focus();
+        document.querySelector("#chatinput").onkeyup = function(e){
+            if (e.keyCode === 13) {// press enter 
+                document.querySelector("#chatbtn").click();
+            }
+        };
+
+    </script>
+</body>
+</html>
