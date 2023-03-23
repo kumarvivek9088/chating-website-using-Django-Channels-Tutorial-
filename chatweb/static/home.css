@@ -1,0 +1,18 @@
+body {
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container{
+    margin-top: 200px;
+    text-align: center;
+
+}
+
+input{
+    width: 25%;
+    height: 50px;
+    text-align: center;
+}

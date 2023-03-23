@@ -1,0 +1,31 @@
+body{
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+textarea{
+    width: 75%;
+    resize: none;
+    height: 100%;
+}
+.container{
+    text-align: center;
+    margin-top: 50px;
+}
+
+input{
+    width: 50%;
+    height: 50px;
+    text-align: center;
+}
+input:focus{
+    box-shadow: 0px 0px 20px;
+}
+button{
+    width : 20%;
+    height: 50px;
+
+
+}
